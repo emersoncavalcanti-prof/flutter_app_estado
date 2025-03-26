@@ -10,6 +10,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Center(child: Text('0', style: TextStyle(fontSize: 40))),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.add, color: Colors.white, size: 30),
+      ),
+    );
   }
 }
