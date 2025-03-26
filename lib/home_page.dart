@@ -8,12 +8,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int contador = 0;
+
+  void incrementar() {
+    setState(() {
+      contador++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('0', style: TextStyle(fontSize: 40))),
+      body: Center(child: Text('$contador', style: TextStyle(fontSize: 40))),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: incrementar,
         backgroundColor: Colors.blue,
         child: Icon(Icons.add, color: Colors.white, size: 30),
       ),
