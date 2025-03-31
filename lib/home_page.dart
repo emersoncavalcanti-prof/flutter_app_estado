@@ -12,7 +12,17 @@ class _HomePageState extends State<HomePage> {
 
   void incrementar() {
     setState(() {
-      contador++;
+      if (contador < 10) {
+        contador++;
+      }
+    });
+  }
+
+  void decrementar() {
+    setState(() {
+      if (contador > 0) {
+        contador--;
+      }
     });
   }
 
@@ -20,10 +30,21 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(child: Text('$contador', style: TextStyle(fontSize: 40))),
-      floatingActionButton: FloatingActionButton(
-        onPressed: incrementar,
-        backgroundColor: Colors.blue,
-        child: Icon(Icons.add, color: Colors.white, size: 30),
+      floatingActionButton: Row(
+        spacing: 10,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: decrementar,
+            backgroundColor: Colors.red,
+            child: Icon(Icons.remove, color: Colors.white, size: 30),
+          ),
+          FloatingActionButton(
+            onPressed: incrementar,
+            backgroundColor: Colors.blue,
+            child: Icon(Icons.add, color: Colors.white, size: 30),
+          ),
+        ],
       ),
     );
   }
