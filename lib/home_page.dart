@@ -8,43 +8,39 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int contador = 0;
-
-  void incrementar() {
-    setState(() {
-      if (contador < 10) {
-        contador++;
-      }
-    });
-  }
-
-  void decrementar() {
-    setState(() {
-      if (contador > 0) {
-        contador--;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text('$contador', style: TextStyle(fontSize: 40))),
-      floatingActionButton: Row(
-        spacing: 10,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: decrementar,
-            backgroundColor: Colors.red,
-            child: Icon(Icons.remove, color: Colors.white, size: 30),
-          ),
-          FloatingActionButton(
-            onPressed: incrementar,
-            backgroundColor: Colors.blue,
-            child: Icon(Icons.add, color: Colors.white, size: 30),
-          ),
-        ],
+      appBar: AppBar(
+        title: Text('Minha Lista', style: TextStyle(color: Colors.white)),
+        backgroundColor: Colors.blue,
+      ),
+      drawer: Drawer(
+        child: Column(
+          children: [
+            UserAccountsDrawerHeader(
+              currentAccountPicture: Image.network(
+                'https://static.vecteezy.com/system/resources/thumbnails/004/607/791/small_2x/man-face-emotive-icon-smiling-male-character-in-blue-shirt-flat-illustration-isolated-on-white-happy-human-psychological-portrait-positive-emotions-user-avatar-for-app-web-design-vector.jpg',
+              ),
+              accountName: Text('Emerson'),
+              accountEmail: Text('emerson@ete.com'),
+            ),
+            Expanded(
+              child: ListView(
+                children: [
+                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
+                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
+                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
+                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
+                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
+                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
+                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
+                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
