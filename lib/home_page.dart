@@ -10,37 +10,51 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _controller = TextEditingController();
+    final List<String> _tarefas = [];
+    final _formKey = GlobalKey<FormState>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Minha Lista', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
       ),
-      drawer: Drawer(
-        child: Column(
-          children: [
-            UserAccountsDrawerHeader(
-              currentAccountPicture: Image.network(
-                'https://static.vecteezy.com/system/resources/thumbnails/004/607/791/small_2x/man-face-emotive-icon-smiling-male-character-in-blue-shirt-flat-illustration-isolated-on-white-happy-human-psychological-portrait-positive-emotions-user-avatar-for-app-web-design-vector.jpg',
-              ),
-              accountName: Text('Emerson'),
-              accountEmail: Text('emerson@ete.com'),
-            ),
-            Expanded(
-              child: ListView(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                spacing: 5,
                 children: [
-                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
-                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
-                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
-                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
-                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
-                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
-                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
-                  ListTile(title: Text('Menu 1'), leading: Icon(Icons.add)),
+                  TextFormField(
+                    controller: _controller,
+                    decoration: InputDecoration(
+                      labelText: 'Digite um item',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Preencha o campo corretamente';
+                      }
+                      if (value.length < 3) {
+                        return 'Digite ao menos 3 caracteres';
+                      }
+                      return null;
+                    },
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {}
+                    },
+                    child: Text('Cadastrar'),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
