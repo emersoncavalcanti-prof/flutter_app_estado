@@ -53,12 +53,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              _addTarefa();
-            },
-            child: Text('Cadastrar'),
-          ),
+          ElevatedButton(onPressed: _addTarefa, child: Text('Cadastrar')),
           Expanded(
             child: ListView.builder(
               itemCount: _tarefas.length,
