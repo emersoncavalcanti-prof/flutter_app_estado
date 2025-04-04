@@ -8,11 +8,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final TextEditingController _controllerTarefa = TextEditingController();
+  final List<String> _tarefas = [];
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _controller = TextEditingController();
-    final List<String> _tarefas = [];
-    final _formKey = GlobalKey<FormState>();
+    void _addTarefa() {
+      if (_formKey.currentState!.validate()) {
+        setState(() {
+          _tarefas.add(_controllerTarefa.text);
+          _controllerTarefa.clear();
+        });
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -24,34 +33,38 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Form(
+              autovalidateMode: AutovalidateMode.disabled,
               key: _formKey,
-              child: Column(
-                spacing: 5,
-                children: [
-                  TextFormField(
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      labelText: 'Digite um item',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Preencha o campo corretamente';
-                      }
-                      if (value.length < 3) {
-                        return 'Digite ao menos 3 caracteres';
-                      }
-                      return null;
-                    },
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {}
-                    },
-                    child: Text('Cadastrar'),
-                  ),
-                ],
+              child: TextFormField(
+                controller: _controllerTarefa,
+                decoration: InputDecoration(
+                  labelText: 'Digite uma tarefa',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'Preencha o campo corretamente';
+                  }
+                  if (value.length < 3) {
+                    return 'Digite ao menos 3 caracteres';
+                  }
+                  return null;
+                },
               ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              _addTarefa();
+            },
+            child: Text('Cadastrar'),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _tarefas.length,
+              itemBuilder: (context, index) {
+                return ListTile(title: Text(_tarefas[index]));
+              },
             ),
           ),
         ],
