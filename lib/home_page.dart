@@ -58,7 +58,18 @@ class _HomePageState extends State<HomePage> {
             child: ListView.builder(
               itemCount: _tarefas.length,
               itemBuilder: (context, index) {
-                return ListTile(title: Text(_tarefas[index]));
+                return ListTile(
+                  leading: Image.network(
+                    'https://cdn-icons-png.flaticon.com/512/9709/9709605.png',
+                  ),
+                  title: Text(
+                    _tarefas[index],
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Text('Mais informações'),
+                  trailing: Icon(Icons.more),
+                  dense: true,
+                );
               },
             ),
           ),
