@@ -53,7 +53,24 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          ElevatedButton(onPressed: _addTarefa, child: Text('Cadastrar')),
+          InkWell(
+            onTap: _addTarefa,
+            child: Container(
+              margin: EdgeInsets.only(left: 8, right: 8),
+              width: double.infinity,
+              height: 30,
+              color: Colors.blue,
+              child: Center(
+                child: Text(
+                  'Cadastrar',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: _tarefas.length,
