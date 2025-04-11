@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Minha Lista', style: TextStyle(color: Colors.white)),
+        title: Text('Lista de tarefas', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.blue,
       ),
       body: Column(
