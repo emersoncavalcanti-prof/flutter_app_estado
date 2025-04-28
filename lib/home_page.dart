@@ -25,10 +25,28 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void _carregarTarefas() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? tarefaJson = prefs.getString('tarefas');
+
+    if (tarefaJson != null) {
+      setState(() {
+        _tarefas.addAll(List<String>.from(jsonDecode(tarefaJson)));
+      });
+    }
+  }
+
   void _salvarTarefas() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String tarefaJson = json.encode(_tarefas);
     await prefs.setString('tarefas', tarefaJson);
+  }
+
+  void _removerTarefa(int index) {
+    setState(() {
+      _tarefas.removeAt(index);
+      _salvarTarefas();
+    });
   }
 
   @override
