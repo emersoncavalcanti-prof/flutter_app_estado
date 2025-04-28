@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,17 +15,24 @@ class _HomePageState extends State<HomePage> {
   final List<String> _tarefas = [];
   final _formKey = GlobalKey<FormState>();
 
+  void _addTarefa() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        _tarefas.add(_controllerTarefa.text);
+        _controllerTarefa.clear();
+        _salvarTarefas();
+      });
+    }
+  }
+
+  void _salvarTarefas() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String tarefaJson = json.encode(_tarefas);
+    await prefs.setString('tarefas', tarefaJson);
+  }
+
   @override
   Widget build(BuildContext context) {
-    void _addTarefa() {
-      if (_formKey.currentState!.validate()) {
-        setState(() {
-          _tarefas.add(_controllerTarefa.text);
-          _controllerTarefa.clear();
-        });
-      }
-    }
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Lista de tarefas', style: TextStyle(color: Colors.white)),
