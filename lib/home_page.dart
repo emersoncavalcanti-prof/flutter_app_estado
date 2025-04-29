@@ -15,6 +15,13 @@ class _HomePageState extends State<HomePage> {
   final List<String> _tarefas = [];
   final _formKey = GlobalKey<FormState>();
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _carregarTarefas();
+  }
+
   void _addTarefa() {
     if (_formKey.currentState!.validate()) {
       setState(() {
@@ -111,8 +118,11 @@ class _HomePageState extends State<HomePage> {
                     _tarefas[index],
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  subtitle: Text('Mais informações'),
-                  trailing: Icon(Icons.more),
+                  subtitle: Text('Clique na lixeira para remover'),
+                  trailing: IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () => _removerTarefa(index),
+                  ),
                   dense: true,
                 );
               },
